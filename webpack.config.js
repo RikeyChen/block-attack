@@ -10,9 +10,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.scss$/,
+        test: /\.css$/,
         exclude: /(node_modules)/,
         loaders: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader',
       },
       {
         test: /\.jsx?$/,

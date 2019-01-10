@@ -1,0 +1,40 @@
+.main {
+  border: 1px solid white;
+  width: 95vw;
+  height: 95vh;
+  margin: auto;
+  background-color: transparent;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.main > div {
+  height: 100%;
+  width: 50%;
+  margin: auto;
+}
+
+.game-container {
+  border: 1px solid white;
+}
+
+.game-container > div {
+  margin: 10px auto auto auto;
+}
+
+.block-game {
+  margin-top: 5px;
+  height: 85%;
+  width: 90%;
+  border: 1px solid white;
+}
+
+.rocket-ship {
+  background-image: url("../../wireframes/spaceship.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
+  z-index: 1;
+}

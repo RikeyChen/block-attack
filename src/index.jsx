@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './stylesheets/index.scss';
+import './stylesheets/index.css';
 import App from './app';
 
 document.addEventListener('DOMContentLoaded', () => {
