@@ -1,34 +1,76 @@
-const level = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
+import SquareBlock from './blocks/square_block';
+import TriBlock from './blocks/tri_block';
+import LBlock from './blocks/l_block';
+import JBlock from './blocks/j_block';
+import ZBlock from './blocks/z_block';
+import SBlock from './blocks/s_block';
+import IBlock from './blocks/i_block';
+
+const row = [
+  'X', 'X', 'X', 'X', 'X',
+  'X', 'X', 'X', 'X', 'X',
+];
 
 const defaultGrid = [];
 
-// Make default grid 21 rows in height
-for (let i = 0; i < 21; i++) {
-  defaultGrid.push(Array.from(level));
+// Make default grid 20 rows in height
+for (let i = 0; i < 20; i++) {
+  defaultGrid.push(Array.from(row));
 }
 
 class Board {
   constructor(grid = defaultGrid) {
     this.grid = grid;
+    this.blocked = false;
+    this.currentBlock = null;
+    this.pieces = [];
+
     this.gameOver = this.gameOver.bind(this);
-    this.fullBoard = this.fullBoard.bind(this);
+    this.renderBlockStart = this.renderBlockStart.bind(this);
+    this.blockRenderable = this.blockRenderable.bind(this);
+    this.nextBlock = this.nextBlock.bind(this);
   }
 
   gameOver() {
-    return this.fullBoard();
+    return !this.blockRenderable();
   }
 
-  fullBoard() {
-    for (let i = 0; i < 10; i++) {
-      if (
-        this.grid[i][0]
-      && this.grid[i][1]
-      && this.grid[i][2]
-      && this.grid[i][3]
-      && this.grid[i][4]
-      ) return true;
+  nextBlock() {
+    if (this.pieces.length === 0) {
+      this.pieces = [
+        new SquareBlock(), new SquareBlock(), new SquareBlock(), new SquareBlock(),
+        new TriBlock(), new TriBlock(), new TriBlock(), new TriBlock(),
+        new LBlock(), new LBlock(), new LBlock(), new LBlock(),
+        new JBlock(), new JBlock(), new JBlock(), new JBlock(),
+        new ZBlock(), new ZBlock(), new ZBlock(), new ZBlock(),
+        new SBlock(), new SBlock(), new SBlock(), new SBlock(),
+        new IBlock(), new IBlock(), new IBlock(), new IBlock(),
+      ];
     }
-    return false;
+
+    return this.pieces.splice(
+      Math.floor(Math.random() * this.pieces.length - 1),
+      1,
+    )[0];
+  }
+
+  blockRenderable(block) {
+    const inc = block.type === 'threes' ? 3 : 4;
+    for (let i = 0; i < block.pos.length; i++) {
+      const [x, y] = block.pos[i];
+      if (this.grid[x + inc][y + inc] !== 'X') {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  renderBlockStart(block) {
+    const inc = block.type === 'threes' ? 3 : 4;
+    for (let i = 0; i < block.pos.length; i++) {
+      const [x, y] = block.pos[i];
+      this.grid[x + inc][y + inc] = block.symbol;
+    }
   }
 }
 
