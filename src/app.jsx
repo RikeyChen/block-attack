@@ -18,7 +18,11 @@ class App extends Component {
             </div>
             <div className="game-container">
               <div className="block-game" />
-              <div className="rocket-ship" />
+              <div className="rocket-ship-container">
+                <div className="force-field">
+                  <div className="rocket-ship" />
+                </div>
+              </div>
             </div>
           </div>
         </div>

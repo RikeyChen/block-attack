@@ -1,5 +1,4 @@
 .main {
-  border: 1px solid white;
   width: 95vw;
   height: 95vh;
   margin: auto;
@@ -15,26 +14,38 @@
   margin: auto;
 }
 
-.game-container {
+.block-game {
+  margin-top: 5px;
+  height: 80%;
+  width: 65%;
   border: 1px solid white;
-}
-
-.game-container > div {
   margin: 10px auto auto auto;
 }
 
-.block-game {
-  margin-top: 5px;
-  height: 85%;
-  width: 90%;
-  border: 1px solid white;
+.rocket-ship-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.force-field {
+  background-image: url("../../wireframes/forcefield.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 125px;
+  height: 125px;
+  position: absolute;
+  top: 0px;
 }
 
 .rocket-ship {
   background-image: url("../../wireframes/spaceship.png");
   background-size: cover;
   background-repeat: no-repeat;
-  width: 50px;
-  height: 50px;
-  z-index: 1;
+  width: 120px;
+  height: 45px;
+  transform: rotate(-150.05deg);
+  position: absolute;
+  bottom: 30px;
+  left: 15px;
 }
