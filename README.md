@@ -68,7 +68,6 @@ This project was inspired by my life-long enjoyment of tetris. I would freqeuent
 
 ## Technologies
 - Vanilla javascript for game logic
-- HTML5 Canvas for rendering
 - React.js - Page structure and functionality
 - MongoDB/Node.js - Simple Backend/Database for keeping highscores
 - HTML audio tag for music or an Audio Player library
@@ -79,7 +78,6 @@ This project was inspired by my life-long enjoyment of tetris. I would freqeuent
 
 ### Day 1
 - Setup basic structure and dependencies of project
-- Research canvas
 - Build board design and rendering
 
 ### Day 2
