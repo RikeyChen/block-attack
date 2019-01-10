@@ -1,7 +1,7 @@
 {
   "name": "block_attack",
   "version": "1.0.0",
-  "description": "## Background and Overview",
+  "description": "Block Attack",
   "main": "index.jsx",
   "scripts": {
     "webpack": "webpack --watch --mode=development"
@@ -21,9 +21,14 @@
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
-    "css-loader": "^2.1.0",
+    "compass": "^0.1.1",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react-dom": "^16.7.0"
+  },
+  "devDependencies": {
+    "css-loader": "^2.1.0",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.28.1",
     "webpack-cli": "^3.2.1"
