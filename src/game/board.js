@@ -26,10 +26,9 @@ class Board {
       && this.grid[i][2]
       && this.grid[i][3]
       && this.grid[i][4]
-      ) {
-        return true;
-      } return false;
+      ) return true;
     }
+    return false;
   }
 }
 
