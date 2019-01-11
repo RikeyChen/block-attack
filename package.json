@@ -2,7 +2,7 @@
   "name": "block_attack",
   "version": "1.0.0",
   "description": "Block Attack",
-  "main": "index.jsx",
+  "main": "index.js",
   "scripts": {
     "webpack": "webpack --watch --mode=development"
   },
@@ -16,11 +16,12 @@
     "url": "https://github.com/RikeyChen/block-attack/issues"
   },
   "homepage": "https://github.com/RikeyChen/block-attack#readme",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "css-loader": "^2.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
-    "webpack": "^4.28.1",
+    "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1"
   }
 }
