@@ -22,6 +22,10 @@
   margin: 10px auto auto auto;
 }
 
+.block-game * {
+  z-index: 1
+}
+
 .rocket-ship-container {
   position: relative;
   display: flex;
@@ -57,34 +61,37 @@
 }
 
 .row > div {
-  width: 10%;
-  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 1.5em;
+  height: 1.5em;
+  border: 1px solid #ddd;
 }
 
 .O {
-  background-color: yellow;
+  background-color: #b5a677;
 }
 
 .T {
-  background-color: purple;
+  background-color: #b77c72;
 }
 
 .S {
-  background-color: red
+  background-color: #816e56;
 }
 
 .Z {
-  background-color: green;
+  background-color: #e3be58;
 }
 
 .I {
-  background-color: lightblue;
+  background-color: #ec858b;
 }
 
 .L {
-  background-color: orange;
+  background-color: #f8efae;
 }
 
 .J {
-  background-color: blue;
+  background-color: #f1b598;
 }

@@ -5,7 +5,6 @@ class Game {
     this.board = board;
     this.play = this.play.bind(this);
     this.play();
-    // this.currentBlock = this.board.nextBlock();
     this.over = this.over.bind(this);
   }
 
@@ -14,9 +13,11 @@ class Game {
   }
 
   play() {
-    this.currentBlock = this.board.nextBlock();
+    console.log('BEFORE:', this.board.grid);
+    this.board.currentBlock = this.board.next();
+    this.currentBlock = this.board.currentBlock;
+    console.log('AFTER:', this.board.grid);
     this.board.renderBlockStart(this.currentBlock);
-
     const descendBlock = setInterval(() => {
       this.board.descendBlock(this.currentBlock);
       if (!this.board.descendable(this.currentBlock)) {

@@ -8,8 +8,8 @@ class Block {
 
   descend(newCoords) {
     const newPos = this.pos.map((coord, idx) => newCoords[idx]);
-    this.pos = newPos;
-    return this.pos;
+    this.currentPos = newPos;
+    return this.currentPos;
   }
 }
 

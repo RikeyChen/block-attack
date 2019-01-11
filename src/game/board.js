@@ -14,7 +14,7 @@ const row = [
 const defaultGrid = [];
 
 // Make default grid 20 rows in height
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 21; i++) {
   defaultGrid.push(Array.from(row));
 }
 
@@ -26,16 +26,17 @@ class Board {
     this.gameOver = this.gameOver.bind(this);
     this.renderBlockStart = this.renderBlockStart.bind(this);
     this.blockRenderable = this.blockRenderable.bind(this);
-    this.nextBlock = this.nextBlock.bind(this);
     this.descendBlock = this.descendBlock.bind(this);
     this.renderBlock = this.renderBlock.bind(this);
+    this.next = this.next.bind(this);
   }
 
   gameOver() {
-    return !this.blockRenderable();
+    const nextBlock = this.next();
+    return !this.blockRenderable(nextBlock);
   }
 
-  nextBlock() {
+  next() {
     if (this.pieces.length === 0) {
       this.pieces = [
         new OBlock(), new OBlock(), new OBlock(), new OBlock(),
@@ -77,16 +78,19 @@ class Board {
   }
 
   descendBlock(block) {
-    this.renderBlock('X', block.pos);
+    this.renderBlock('X', block.currentPos);
     block.descend(this.nextLevel(block));
-    this.renderBlock(block.symbol, block.pos);
+    this.renderBlock(block.symbol, block.currentPos);
   }
 
   descendable(block) {
     const nextCoords = this.nextLevel(block);
     for (let i = 0; i < nextCoords.length; i++) {
       const [x, y] = nextCoords[i];
-      if ((this.grid[x][y] !== 'X' && this.grid[x][y] !== 'C') || this.grid[x][y] === undefined) {
+      if (x < 1 || x > 20) {
+        return false;
+      }
+      if (!block.currentPos.includes([x, y]) && this.grid[x][y] !== 'X') {
         return false;
       }
     } return true;
