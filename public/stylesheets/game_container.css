@@ -60,3 +60,31 @@
   width: 10%;
   height: 100%;
 }
+
+.O {
+  background-color: yellow;
+}
+
+.T {
+  background-color: purple;
+}
+
+.S {
+  background-color: red
+}
+
+.Z {
+  background-color: green;
+}
+
+.I {
+  background-color: lightblue;
+}
+
+.L {
+  background-color: orange;
+}
+
+.J {
+  background-color: blue;
+}
