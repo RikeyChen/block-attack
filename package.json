@@ -17,15 +17,7 @@
   },
   "homepage": "https://github.com/RikeyChen/block-attack#readme",
   "dependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.3",
-    "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.5",
     "compass": "^0.1.1",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
-  },
-  "devDependencies": {
     "compass-mixins": "^0.12.10",
     "css-loader": "^2.1.0",
     "node-sass": "^4.11.0",
