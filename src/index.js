@@ -7,8 +7,8 @@ class App {
   }
 
   populateGrid() {
-    const { board } = this.game.board;
-    const gameContainer = document.getElementsByClassName('game-container');
+    const { board } = this.game;
+    const gameContainer = document.getElementsByClassName('game-container')[0];
 
     board.grid.forEach((row, idx1) => {
       const rowNode = document.createElement('div');
@@ -19,6 +19,7 @@ class App {
         colNode.className = `pos-${idx1}-${idx2}`;
         rowNode.appendChild(colNode);
       });
+
       gameContainer.appendChild(rowNode);
     });
   }
