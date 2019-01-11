@@ -1,7 +1,7 @@
 import Block from './block';
 
 class TriBlock extends Block {
-  constructor(type = 'threes') {
+  constructor(type = 'fours') {
     super(type);
     this.symbol = 'T';
     this.pos = [[1, 0], [1, 1], [0, 1], [1, 2]];

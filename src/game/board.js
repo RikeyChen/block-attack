@@ -69,7 +69,7 @@ class Board {
     const inc = block.type === 'threes' ? 3 : 4;
     for (let i = 0; i < block.pos.length; i++) {
       const [x, y] = block.pos[i];
-      this.grid[x + inc][y + inc] = block.symbol;
+      this.grid[x][y + inc] = block.symbol;
     }
   }
 }

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import './stylesheets/app.css';
 import './stylesheets/game_container.css';
-import Board from './game/board';
+import Game from './game/game';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.game = new Game();
     this.state = {
-      board: new Board(),
+      board: this.game.board,
     };
   }
 
