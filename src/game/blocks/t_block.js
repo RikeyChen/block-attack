@@ -1,6 +1,6 @@
 import Block from './block';
 
-class TriBlock extends Block {
+class TBlock extends Block {
   constructor(type = 'fours') {
     super(type);
     this.symbol = 'T';
@@ -8,4 +8,4 @@ class TriBlock extends Block {
   }
 }
 
-export default TriBlock;
+export default TBlock;

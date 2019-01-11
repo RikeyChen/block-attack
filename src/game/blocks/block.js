@@ -7,8 +7,9 @@ class Block {
   // rotate method
 
   descend(newCoords) {
-    const newPos = this.pos.map((coord, idx) => newCoords(idx));
+    const newPos = this.pos.map((coord, idx) => newCoords[idx]);
     this.pos = newPos;
+    return this.pos;
   }
 }
 

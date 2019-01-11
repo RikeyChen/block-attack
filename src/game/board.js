@@ -1,5 +1,5 @@
-import SquareBlock from './blocks/square_block';
-import TriBlock from './blocks/tri_block';
+import OBlock from './blocks/o_block';
+import TBlock from './blocks/t_block';
 import LBlock from './blocks/l_block';
 import JBlock from './blocks/j_block';
 import ZBlock from './blocks/z_block';
@@ -21,14 +21,14 @@ for (let i = 0; i < 20; i++) {
 class Board {
   constructor(grid = defaultGrid) {
     this.grid = grid;
-    this.blocked = false;
-    this.currentBlock = null;
     this.pieces = [];
 
     this.gameOver = this.gameOver.bind(this);
     this.renderBlockStart = this.renderBlockStart.bind(this);
     this.blockRenderable = this.blockRenderable.bind(this);
     this.nextBlock = this.nextBlock.bind(this);
+    this.descendBlock = this.descendBlock.bind(this);
+    this.renderBlock = this.renderBlock.bind(this);
   }
 
   gameOver() {
@@ -38,8 +38,8 @@ class Board {
   nextBlock() {
     if (this.pieces.length === 0) {
       this.pieces = [
-        new SquareBlock(), new SquareBlock(), new SquareBlock(), new SquareBlock(),
-        new TriBlock(), new TriBlock(), new TriBlock(), new TriBlock(),
+        new OBlock(), new OBlock(), new OBlock(), new OBlock(),
+        new TBlock(), new TBlock(), new TBlock(), new TBlock(),
         new LBlock(), new LBlock(), new LBlock(), new LBlock(),
         new JBlock(), new JBlock(), new JBlock(), new JBlock(),
         new ZBlock(), new ZBlock(), new ZBlock(), new ZBlock(),
@@ -68,13 +68,32 @@ class Board {
   nextLevel(block) {
     const newPos = block.pos.map((coord) => {
       const [x, y] = coord;
-      return [x, y + 1];
+      return [x + 1, y];
     });
     return newPos;
   }
 
   descendBlock(block) {
-    block.descend(nextLevel(block));
+    this.renderBlock('X', block.pos);
+    block.descend(this.nextLevel(block));
+    this.renderBlock(block.symbol, block.pos);
+  }
+
+  descendable(block) {
+    const nextCoords = this.nextLevel(block);
+    for (let i = 0; i < nextCoords.length; i++) {
+      const [x, y] = nextCoords[i];
+      if ((this.grid[x][y] !== 'X' && this.grid[x][y] !== 'C') || this.grid[x][y] === undefined) {
+        return false;
+      }
+    } return true;
+  }
+
+  renderBlock(blockSym, coords) {
+    for (let i = 0; i < coords.length; i++) {
+      const [x, y] = coords[i];
+      this.grid[x][y] = blockSym;
+    }
   }
 
   renderBlockStart(block) {
