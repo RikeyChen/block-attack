@@ -65,6 +65,18 @@ class Board {
     return true;
   }
 
+  nextLevel(block) {
+    const newPos = block.pos.map((coord) => {
+      const [x, y] = coord;
+      return [x, y + 1];
+    });
+    return newPos;
+  }
+
+  descendBlock(block) {
+    block.descend(nextLevel(block));
+  }
+
   renderBlockStart(block) {
     const inc = block.type === 'threes' ? 3 : 4;
     for (let i = 0; i < block.pos.length; i++) {
