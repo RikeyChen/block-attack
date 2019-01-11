@@ -1,9 +1,35 @@
 import React, { Component } from 'react';
 import './stylesheets/app.css';
 import './stylesheets/game_container.css';
+import Board from './game/board';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      board: new Board(),
+    };
+  }
+
   render() {
+    const { board } = this.state;
+    const grid = (
+      board.grid.map((row, idx) => (
+        <div className="row" key={idx}>
+          <div className="">{row[0]}</div>
+          <div className="">{row[1]}</div>
+          <div className="">{row[2]}</div>
+          <div className="">{row[3]}</div>
+          <div className="">{row[4]}</div>
+          <div className="">{row[5]}</div>
+          <div className="">{row[6]}</div>
+          <div className="">{row[7]}</div>
+          <div className="">{row[8]}</div>
+          <div className="">{row[9]}</div>
+        </div>
+      ))
+    );
+
     return (
       <div className="app">
         <div className="app-main">
@@ -17,7 +43,9 @@ class App extends Component {
               <div>Score</div>
             </div>
             <div className="game-container">
-              <div className="block-game" />
+              <div className="block-game">
+                {grid}
+              </div>
               <div className="rocket-ship-container">
                 <div className="force-field">
                   <div className="rocket-ship" />
