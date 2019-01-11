@@ -55,10 +55,13 @@ class Board {
   }
 
   blockRenderable(block) {
-    const inc = block.type === 'threes' ? 3 : 4;
-    for (let i = 0; i < block.pos.length; i++) {
-      const [x, y] = block.pos[i];
-      if (this.grid[x + inc][y + inc] !== 'X') {
+    for (let i = 0; i < block.startPos.length; i++) {
+      const [x, y] = block.startPos[i];
+      if (block instanceof IBlock) {
+        if (this.grid[x + 1][y] !== 'X' && this.grid[x][y] !== 'X') {
+          return false;
+        }
+      } else if (this.grid[x + 2][y] && this.grid[x][y] !== 'X') {
         return false;
       }
     }
@@ -66,7 +69,7 @@ class Board {
   }
 
   nextLevel(block) {
-    const newPos = block.pos.map((coord) => {
+    const newPos = block.currentPos.map((coord) => {
       const [x, y] = coord;
       return [x + 1, y];
     });
@@ -97,10 +100,9 @@ class Board {
   }
 
   renderBlockStart(block) {
-    const inc = block.type === 'threes' ? 3 : 4;
-    for (let i = 0; i < block.pos.length; i++) {
-      const [x, y] = block.pos[i];
-      this.grid[x][y + inc] = block.symbol;
+    for (let i = 0; i < block.startPos.length; i++) {
+      const [x, y] = block.startPos[i];
+      this.grid[x][y] = block.symbol;
     }
   }
 }
