@@ -6,7 +6,6 @@ class App {
     this.populateGrid = this.populateGrid.bind(this);
     this.board = this.game.board;
     this.renderBlocks = this.renderBlocks.bind(this);
-
     this.populateGrid();
   }
 
@@ -27,15 +26,16 @@ class App {
 
   renderBlocks() {
     const { grid } = this.board;
-
-    grid.forEach((row, idx1) => {
-      row.forEach((col, idx2) => {
-        const pos = document.getElementsByClassName(`pos-${idx1 + 1}-${idx2}`)[0];
+    for (let idx1 = 1; idx1 < grid.length; idx1++) {
+      for (let idx2 = 0; idx2 < grid[idx1].length; idx2++) {
+        const pos = document.getElementsByClassName(`pos-${idx1}-${idx2}`)[0];
         if (grid[idx1][idx2] !== 'X') {
-          pos.className += ` ${this.game.currentBlock.symbol}`;
+          pos.className = `pos-${idx1}-${idx2} ${this.game.board.currentBlock.symbol}`;
+        } else {
+          pos.className = `pos-${idx1}-${idx2}`;
         }
-      });
-    });
+      }
+    }
   }
 }
 
@@ -43,8 +43,17 @@ export default App;
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new App();
-
-  app.renderBlocks();
-  // while (!app.game.over()) {
-  // }
+  const render = setInterval(() => {
+    app.renderBlocks();
+    if (app.game.over()) {
+      console.log('cleared');
+      clearInterval(render);
+    }
+  }, 50);
+  app.game.playNextBlock(app);
+  window.grid = app.game.board.grid;
+  window.descendBlock = app.game.board.descendBlock;
+  window.currentBlock = app.game.board.currentBlock;
+  window.playNextBlock = app.game.playNextBlock;
+  window.renderBlocks = app.renderBlocks;
 });
