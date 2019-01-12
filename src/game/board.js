@@ -13,7 +13,7 @@ const row = [
 
 const defaultGrid = [];
 
-// Make default grid 20 rows in height
+// Make default grid 21 rows in height
 for (let i = 0; i < 21; i++) {
   defaultGrid.push(Array.from(row));
 }
@@ -29,11 +29,11 @@ class Board {
     this.descendBlock = this.descendBlock.bind(this);
     this.renderBlock = this.renderBlock.bind(this);
     this.next = this.next.bind(this);
+    this.currentBlock = this.next();
   }
 
   gameOver() {
-    const nextBlock = this.next();
-    return !this.blockRenderable(nextBlock);
+    return !this.blockRenderable(this.currentBlock);
   }
 
   next() {
@@ -56,17 +56,45 @@ class Board {
   }
 
   blockRenderable(block) {
-    for (let i = 0; i < block.startPos.length; i++) {
-      const [x, y] = block.startPos[i];
-      if (block instanceof IBlock) {
-        if (this.grid[x + 1][y] !== 'X' && this.grid[x][y] !== 'X') {
-          return false;
+    switch (block.constructor.name) {
+      case 'IBlock':
+        for (let i = 0; i < block.startPos.length; i++) {
+          const [x, y] = block.startPos[i];
+          if (this.grid[x + 1][y] !== 'X') return false;
         }
-      } else if (this.grid[x + 2][y] && this.grid[x][y] !== 'X') {
-        return false;
-      }
+        break;
+      case 'JBlock':
+      case 'LBlock':
+      case 'TBlock':
+        for (let i = 1; i < block.startPos.length; i++) {
+          const [x, y] = block.startPos[i];
+          if (this.grid[x][y] !== 'X') return false;
+        }
+        break;
+      case 'OBlock':
+      case 'SBlock':
+      case 'ZBlock':
+        for (let i = 2; i < block.startPos.length; i++) {
+          const [x, y] = block.startPos[i];
+          if (this.grid[x][y] !== 'X' && !block.startPos.includes([x, y])) return false;
+        }
+        break;
+      default:
+        break;
     }
     return true;
+    // for (let i = 0; i < block.startPos.length; i++) {
+    //   const [x, y] = block.startPos[i];
+    //   if (block instanceof IBlock) {
+    //     if (this.grid[x + 1][y] !== 'X') {
+    //       return false;
+    //     }
+    //   } else if (!block.currentPos.includes([x, y])
+    //             && this.grid[x + 1][y] !== 'X') {
+    //     return false;
+    //   }
+    // }
+    // return true;
   }
 
   nextLevel(block) {
