@@ -1,0 +1,33 @@
+.info-section {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  text-align: center;
+  color: #FFF5C0;
+  z-index: 1;
+}
+
+.ufo {
+  background-image: url("../../wireframes/ufo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 80%;
+  height: 35%;
+  margin: 100px 0 0 auto;
+}
+
+.level-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  line-height: 1.5;
+}
+
+.level {
+  font-size: 50px;
+}
+
+.score {
+  font-size: 35px;
+}
