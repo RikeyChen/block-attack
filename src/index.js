@@ -45,12 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = new App();
   const render = setInterval(() => {
     app.renderBlocks();
-    if (app.game.over()) {
-      console.log('cleared');
-      clearInterval(render);
-    }
   }, 50);
   app.game.playNextBlock(app);
+
+  if (app.game.over()) {
+    clearInterval(render);
+  }
   window.grid = app.game.board.grid;
   window.descendBlock = app.game.board.descendBlock;
   window.currentBlock = app.game.board.currentBlock;
