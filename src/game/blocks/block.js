@@ -1,26 +1,28 @@
 class Block {
-  constructor(type = 'null') {
+  constructor(type = 'null', start = true) {
     this.type = type;
     this.symbol = 'X';
     this.startPos = [[0, 0]];
     this.currentPos = this.startPos;
     this.pos = [[0, 0]];
+    this.start = start;
   }
   // rotate method
 
-  findBottomRow() {
+  findBottomRow(pos) {
     const xValues = [];
-    this.currentPos.forEach(pos => xValues.push(pos[0]));
+    pos.forEach(coords => xValues.push(coords[0]));
     const maxX = Math.max(...xValues);
     const maxIndices = [];
     xValues.forEach((x, idx) => {
       if (x === maxX) maxIndices.push(idx);
     });
-    const bottomRow = this.currentPos.filter((pos, idx) => maxIndices.includes(idx));
+    const bottomRow = pos.filter((pos, idx) => maxIndices.includes(idx));
     return bottomRow;
   }
 
   descend(newCoords) {
+    this.start = false;
     const newPos = this.currentPos.map((coord, idx) => newCoords[idx]);
     this.currentPos = newPos;
     return this.currentPos;
