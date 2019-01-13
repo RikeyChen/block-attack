@@ -53,7 +53,6 @@ class Block {
   }
 
   rotate() {
-    console.log('ROTATING');
     this.pivot = this.currentPos[0];
     this.currentPos = this.currentPos.map((coord) => {
       const [x, y] = coord;
