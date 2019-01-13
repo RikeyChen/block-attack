@@ -5,6 +5,7 @@ import JBlock from './blocks/j_block';
 import ZBlock from './blocks/z_block';
 import SBlock from './blocks/s_block';
 import IBlock from './blocks/i_block';
+import searchForArray from '../util/util';
 
 const row = [
   'X', 'X', 'X', 'X', 'X',
@@ -102,9 +103,11 @@ class Board {
   }
 
   rotateBlock(block) {
-    this.renderBlock('X', block.currentPos);
-    block.rotate();
-    this.renderBlock(block.symbol, block.currentPos);
+    if (this.rotatable(block)) {
+      this.renderBlock('X', block.currentPos);
+      block.rotate();
+      this.renderBlock(block.symbol, block.currentPos);
+    }
   }
 
   shiftable(block, direction) {
@@ -140,6 +143,24 @@ class Board {
         break;
     }
     return true;
+  }
+
+  rotatable(block) {
+    block.pivot = block.currentPos[0];
+    const newCoords = block.currentPos.map((coord) => {
+      const [x, y] = coord;
+      const newX = y + block.pivot[0] - block.pivot[1];
+      const newY = block.pivot[0] + block.pivot[1] - x;
+      return [newX, newY];
+    });
+
+    for (let i = 0; i < newCoords.length; i++) {
+      const [x, y] = newCoords[i];
+      if (this.grid[x][y] !== 'X'
+        && searchForArray(block.currentPos, newCoords[i]) === -1) {
+        return false;
+      }
+    } return true;
   }
 
   renderBlock(blockSym, coords) {
