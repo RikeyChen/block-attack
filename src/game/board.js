@@ -88,6 +88,12 @@ class Board {
     this.renderBlock(block.symbol, block.currentPos);
   }
 
+  rotateBlock(block) {
+    this.renderBlock('X', block.currentPos);
+    block.rotate();
+    this.renderBlock(block.symbol, block.currentPos);
+  }
+
   descendable(block) {
     const bottomRow = block.findBottomRow(block.currentPos);
     for (let i = 0; i < bottomRow.length; i++) {

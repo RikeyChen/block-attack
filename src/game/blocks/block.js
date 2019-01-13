@@ -6,8 +6,9 @@ class Block {
     this.currentPos = this.startPos;
     this.pos = [[0, 0]];
     this.start = start;
+    this.pivot = this.currentPos[0];
+    this.rotate = this.rotate.bind(this);
   }
-  // rotate method
 
   findBottomRow(pos) {
     const xValues = [];
@@ -23,8 +24,19 @@ class Block {
 
   descend(newCoords) {
     this.start = false;
-    const newPos = this.currentPos.map((coord, idx) => newCoords[idx]);
-    this.currentPos = newPos;
+    this.currentPos = newCoords;
+    return this.currentPos;
+  }
+
+  rotate() {
+    console.log('ROTATING');
+    this.pivot = this.currentPos[0];
+    this.currentPos = this.currentPos.map((coord) => {
+      const [x, y] = coord;
+      const newX = y + this.pivot[0] - this.pivot[1];
+      const newY = this.pivot[0] + this.pivot[1] - x;
+      return [newX, newY];
+    });
     return this.currentPos;
   }
 }

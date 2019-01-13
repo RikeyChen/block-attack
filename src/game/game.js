@@ -6,6 +6,19 @@ class Game {
     this.over = this.over.bind(this);
     this.playNextBlock = this.playNextBlock.bind(this);
     this.time = 1000;
+    document.addEventListener('keydown', (e) => {
+      console.log(e);
+      switch (e.key) {
+        case 'ArrowDown':
+          this.board.descendBlock(this.board.currentBlock);
+          break;
+        case 'ArrowUp':
+          this.board.rotateBlock(this.board.currentBlock);
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   over() {
@@ -23,6 +36,7 @@ class Game {
         this.board.currentBlock = this.board.next();
         clearInterval(descendBlock);
         if (this.over()) {
+          console.log('GAME OVER');
         } else {
           this.playNextBlock();
         }
