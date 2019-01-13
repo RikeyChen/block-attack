@@ -8,6 +8,10 @@ class OBlock extends Block {
     this.currentPos = this.startPos;
     this.pos = [[0, 0], [0, 1], [1, 0], [1, 1]];
   }
+
+  rotate() {
+
+  }
 }
 
 export default OBlock;
