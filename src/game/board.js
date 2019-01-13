@@ -94,9 +94,11 @@ class Board {
   }
 
   shiftBlock(block, direction) {
-    this.renderBlock('X', block.currentPos);
-    block.shift(this.nextLevel(block, direction));
-    this.renderBlock(block.symbol, block.currentPos);
+    if (this.shiftable(block, direction)) {
+      this.renderBlock('X', block.currentPos);
+      block.shift(this.nextLevel(block, direction));
+      this.renderBlock(block.symbol, block.currentPos);
+    }
   }
 
   rotateBlock(block) {
