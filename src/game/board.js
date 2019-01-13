@@ -25,7 +25,8 @@ class Board {
 
     this.renderBlockStart = this.renderBlockStart.bind(this);
     this.blockRenderable = this.blockRenderable.bind(this);
-    this.descendBlock = this.descendBlock.bind(this);
+    // this.descendBlock = this.descendBlock.bind(this);
+    this.shiftBlock = this.shiftBlock.bind(this);
     this.renderBlock = this.renderBlock.bind(this);
     this.next = this.next.bind(this);
     this.currentBlock = this.next();
@@ -74,17 +75,27 @@ class Board {
     } return true;
   }
 
-  nextLevel(block) {
+  nextLevel(block, direction) {
     const newPos = block.currentPos.map((coord) => {
       const [x, y] = coord;
-      return [x + 1, y];
+      switch (direction) {
+        case 'down':
+          return [x + 1, y];
+          break;
+        case 'right':
+          return [x, y + 1];
+        case 'left':
+          return [x, y - 1];
+        default:
+          break;
+      }
     });
     return newPos;
   }
 
-  descendBlock(block) {
+  shiftBlock(block, direction) {
     this.renderBlock('X', block.currentPos);
-    block.descend(this.nextLevel(block));
+    block.shift(this.nextLevel(block, direction));
     this.renderBlock(block.symbol, block.currentPos);
   }
 
@@ -94,13 +105,37 @@ class Board {
     this.renderBlock(block.symbol, block.currentPos);
   }
 
-  descendable(block) {
-    const bottomRow = block.findBottomRow(block.currentPos);
-    for (let i = 0; i < bottomRow.length; i++) {
-      const [x, y] = bottomRow[i];
-      if (x === 20 || this.grid[x + 1][y] !== 'X') {
-        return false;
-      }
+  shiftable(block, direction) {
+    switch (direction) {
+      case 'right':
+        const mostRightRow = block.findMostRightRow(block.currentPos);
+        for (let i = 0; i < mostRightRow.length; i++) {
+          const [x, y] = mostRightRow[i];
+          if (y === 9 || this.grid[x][y + 1] !== 'X') {
+            return false;
+          }
+        }
+        break;
+      case 'left':
+        const mostLeftRow = block.findMostLeftRow(block.currentPos);
+        for (let i = 0; i < mostLeftRow.length; i++) {
+          const [x, y] = mostLeftRow[i];
+          if (y === 0 || this.grid[x][y - 1] !== 'X') {
+            return false;
+          }
+        }
+        break;
+      case 'down':
+        const bottomRow = block.findBottomRow(block.currentPos);
+        for (let i = 0; i < bottomRow.length; i++) {
+          const [x, y] = bottomRow[i];
+          if (x === 20 || this.grid[x + 1][y] !== 'X') {
+            return false;
+          }
+        }
+        break;
+      default:
+        break;
     }
     return true;
   }

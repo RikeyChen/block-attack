@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clearInterval(render);
   }
   window.grid = app.game.board.grid;
-  window.descendBlock = app.game.board.descendBlock;
+  window.shiftBlock = app.game.board.shiftBlock;
   window.currentBlock = app.game.board.currentBlock;
   window.playNextBlock = app.game.playNextBlock;
   window.renderBlocks = app.renderBlocks;

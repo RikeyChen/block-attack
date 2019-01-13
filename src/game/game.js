@@ -10,10 +10,16 @@ class Game {
       console.log(e);
       switch (e.key) {
         case 'ArrowDown':
-          this.board.descendBlock(this.board.currentBlock);
+          this.board.shiftBlock(this.board.currentBlock, 'down');
           break;
         case 'ArrowUp':
           this.board.rotateBlock(this.board.currentBlock);
+          break;
+        case 'ArrowLeft':
+          this.board.shiftBlock(this.board.currentBlock, 'left');
+          break;
+        case 'ArrowRight':
+          this.board.shiftBlock(this.board.currentBlock, 'right');
           break;
         default:
           break;
@@ -31,8 +37,8 @@ class Game {
       this.board.renderBlockStart(currentBlock);
     }
     const descendBlock = setInterval(() => {
-      this.board.descendBlock(currentBlock);
-      if (!this.board.descendable(currentBlock)) {
+      this.board.shiftBlock(currentBlock, 'down');
+      if (!this.board.shiftable(currentBlock, 'down')) {
         this.board.currentBlock = this.board.next();
         clearInterval(descendBlock);
         if (this.over()) {
