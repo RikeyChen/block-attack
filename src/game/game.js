@@ -9,21 +9,21 @@ class Game {
   }
 
   over() {
-    this.board.gameOver();
+    return this.board.gameOver;
   }
 
   playNextBlock() {
-    console.log(this.board.currentBlock);
-    this.board.renderBlockStart(this.board.currentBlock);
+    const { currentBlock } = this.board;
+    if (currentBlock.start && this.board.blockRenderable(currentBlock)) {
+      this.board.renderBlockStart(currentBlock);
+    }
     const descendBlock = setInterval(() => {
-      this.board.descendBlock(this.board.currentBlock);
-      console.log('HITTING');
-      if (!this.board.descendable(this.board.currentBlock)) {
-        console.log('CLEARING');
-        clearInterval(descendBlock);
+      this.board.descendBlock(currentBlock);
+      if (!this.board.descendable(currentBlock)) {
         this.board.currentBlock = this.board.next();
-        if (!this.over) {
-          console.log('PLAYING NEXT');
+        clearInterval(descendBlock);
+        if (this.over()) {
+        } else {
           this.playNextBlock();
         }
       }
