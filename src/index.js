@@ -30,7 +30,7 @@ class App {
       for (let idx2 = 0; idx2 < grid[idx1].length; idx2++) {
         const pos = document.getElementsByClassName(`pos-${idx1}-${idx2}`)[0];
         if (grid[idx1][idx2] !== 'X') {
-          pos.className = `pos-${idx1}-${idx2} ${this.game.board.currentBlock.symbol}`;
+          pos.className = `pos-${idx1}-${idx2} ${grid[idx1][idx2]}`;
         } else {
           pos.className = `pos-${idx1}-${idx2}`;
         }
