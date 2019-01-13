@@ -23,17 +23,13 @@ class Board {
     this.grid = grid;
     this.pieces = [];
 
-    this.gameOver = this.gameOver.bind(this);
     this.renderBlockStart = this.renderBlockStart.bind(this);
     this.blockRenderable = this.blockRenderable.bind(this);
     this.descendBlock = this.descendBlock.bind(this);
     this.renderBlock = this.renderBlock.bind(this);
     this.next = this.next.bind(this);
     this.currentBlock = this.next();
-  }
-
-  gameOver() {
-    return !this.blockRenderable(this.currentBlock);
+    this.gameOver = false;
   }
 
   next() {
@@ -56,45 +52,26 @@ class Board {
   }
 
   blockRenderable(block) {
-    switch (block.constructor.name) {
-      case 'IBlock':
+    if (block.start) {
+      if (block instanceof IBlock) {
         for (let i = 0; i < block.startPos.length; i++) {
           const [x, y] = block.startPos[i];
-          if (this.grid[x + 1][y] !== 'X') return false;
+          if (this.grid[x + 1][y] !== 'X') {
+            this.gameOver = true;
+            return false;
+          }
         }
-        break;
-      case 'JBlock':
-      case 'LBlock':
-      case 'TBlock':
-        for (let i = 1; i < block.startPos.length; i++) {
-          const [x, y] = block.startPos[i];
-          if (this.grid[x][y] !== 'X') return false;
+      } else {
+        const startBottomRow = block.findBottomRow(block.startPos);
+        for (let i = 0; i < startBottomRow.length; i++) {
+          const [x, y] = startBottomRow[i];
+          if (this.grid[x][y] !== 'X') {
+            this.gameOver = true;
+            return false;
+          }
         }
-        break;
-      case 'OBlock':
-      case 'SBlock':
-      case 'ZBlock':
-        for (let i = 2; i < block.startPos.length; i++) {
-          const [x, y] = block.startPos[i];
-          if (this.grid[x][y] !== 'X' && !block.startPos.includes([x, y])) return false;
-        }
-        break;
-      default:
-        break;
-    }
-    return true;
-    // for (let i = 0; i < block.startPos.length; i++) {
-    //   const [x, y] = block.startPos[i];
-    //   if (block instanceof IBlock) {
-    //     if (this.grid[x + 1][y] !== 'X') {
-    //       return false;
-    //     }
-    //   } else if (!block.currentPos.includes([x, y])
-    //             && this.grid[x + 1][y] !== 'X') {
-    //     return false;
-    //   }
-    // }
-    // return true;
+      }
+    } return true;
   }
 
   nextLevel(block) {
@@ -112,16 +89,14 @@ class Board {
   }
 
   descendable(block) {
-    const nextCoords = this.nextLevel(block);
-    for (let i = 0; i < nextCoords.length; i++) {
-      const [x, y] = nextCoords[i];
-      if (x < 1 || x > 20) {
+    const bottomRow = block.findBottomRow(block.currentPos);
+    for (let i = 0; i < bottomRow.length; i++) {
+      const [x, y] = bottomRow[i];
+      if (x === 20 || this.grid[x + 1][y] !== 'X') {
         return false;
       }
-      if (!block.currentPos.includes([x, y]) && this.grid[x][y] !== 'X') {
-        return false;
-      }
-    } return true;
+    }
+    return true;
   }
 
   renderBlock(blockSym, coords) {
