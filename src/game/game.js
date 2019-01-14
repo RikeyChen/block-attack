@@ -9,34 +9,37 @@ class Game {
     this.time = (this.level === 1 ? 1000 : (1000 / (2 * this.level)));
     this.score = 0;
     this.updateLevel = this.updateLevel.bind(this);
+    this.eventListenMovement = this.eventListenMovement.bind(this);
     this.updateScore();
     this.updateLevel();
 
-    document.addEventListener('keydown', (e) => {
-      switch (e.key) {
-        case 'ArrowDown':
-          this.board.shiftBlock(this.board.currentBlock, 'down');
-          this.score += 40 * this.level;
-          this.updateScore();
-          break;
-        case 'ArrowUp':
-          this.board.rotateBlock(this.board.currentBlock);
-          break;
-        case 'ArrowLeft':
-          this.board.shiftBlock(this.board.currentBlock, 'left');
-          break;
-        case 'ArrowRight':
-          this.board.shiftBlock(this.board.currentBlock, 'right');
-          break;
-        case ' ':
-          this.board.dropBlock(this.board.currentBlock);
-          this.score += 40 * this.level * this.board.rowsDropped;
-          this.updateScore();
-          break;
-        default:
-          break;
-      }
-    });
+    document.addEventListener('keydown', this.eventListenMovement);
+  }
+
+  eventListenMovement(e) {
+    switch (e.key) {
+      case 'ArrowDown':
+        this.board.shiftBlock(this.board.currentBlock, 'down');
+        this.score += 40 * this.level;
+        this.updateScore();
+        break;
+      case 'ArrowUp':
+        this.board.rotateBlock(this.board.currentBlock);
+        break;
+      case 'ArrowLeft':
+        this.board.shiftBlock(this.board.currentBlock, 'left');
+        break;
+      case 'ArrowRight':
+        this.board.shiftBlock(this.board.currentBlock, 'right');
+        break;
+      case ' ':
+        this.board.dropBlock(this.board.currentBlock);
+        this.score += 40 * this.level * this.board.rowsDropped;
+        this.updateScore();
+        break;
+      default:
+        break;
+    }
   }
 
   over() {
@@ -72,6 +75,7 @@ class Game {
       this.board.renderBlockStart(currentBlock);
     } else {
       console.log('GAME OVER');
+      document.removeEventListener('keydown', this.eventListenMovement);
       return;
     }
 
@@ -94,7 +98,6 @@ class Game {
               this.board.currentBlock = this.board.next();
               clearInterval(descendBlock);
               this.playNextBlock();
-              // setTimeout(() => this.playNextBlock(), 500);
             }
           }, 50);
         } else {
@@ -102,7 +105,6 @@ class Game {
           clearInterval(descendBlock);
           if (!this.over()) {
             this.playNextBlock();
-            // setTimeout(() => this.playNextBlock(), 500);
           }
         }
 
