@@ -9,11 +9,17 @@ class Game {
     this.time = (this.level === 1 ? 1000 : (1000 / (2 * this.level)));
     this.score = 0;
     this.updateLevel = this.updateLevel.bind(this);
+    this.updateScore = this.updateScore.bind(this);
     this.eventListenMovement = this.eventListenMovement.bind(this);
-    this.updateScore();
-    this.updateLevel();
 
+    this.update = setInterval(() => {
+      this.updateScore();
+      this.updateLevel();
+    }, 50);
+
+    // this.buttonDown = true;
     document.addEventListener('keydown', this.eventListenMovement);
+    // document.addEventListener('keyup', () => { this.buttonDown = false; });
   }
 
   eventListenMovement(e) {
@@ -21,7 +27,6 @@ class Game {
       case 'ArrowDown':
         this.board.shiftBlock(this.board.currentBlock, 'down');
         this.score += 40 * this.level;
-        this.updateScore();
         break;
       case 'ArrowUp':
         this.board.rotateBlock(this.board.currentBlock);
@@ -35,7 +40,6 @@ class Game {
       case ' ':
         this.board.dropBlock(this.board.currentBlock);
         this.score += 40 * this.level * this.board.rowsDropped;
-        this.updateScore();
         break;
       default:
         break;
@@ -76,6 +80,7 @@ class Game {
     } else {
       console.log('GAME OVER');
       document.removeEventListener('keydown', this.eventListenMovement);
+      clearInterval(this.update);
       return;
     }
 
@@ -101,10 +106,6 @@ class Game {
           if (!this.over()) {
             this.playNextBlock();
           }
-        }
-
-        if (this.over()) {
-          console.log('GAME OVER');
         }
       }
     }, this.time);
