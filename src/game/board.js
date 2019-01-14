@@ -32,6 +32,7 @@ class Board {
     this.shiftClearedRow = this.shiftClearedRow.bind(this);
     this.dropBlock = this.dropBlock.bind(this);
     this.setPresetBlock = this.setPresetBlock.bind(this);
+    this.blastEffect = this.blastEffect.bind(this);
     this.next = this.next.bind(this);
     this.currentBlock = this.next();
     this.gameOver = false;
@@ -157,6 +158,25 @@ class Board {
     }
   }
 
+  blastEffect() {
+    let blasts = document.getElementsByClassName('blast');
+    console.log(blasts);
+    for (let i = 0; i < blasts.length; i++) {
+      const blast = blasts[i];
+      blast.className = `blast on`;
+      console.log(blasts)
+    }
+
+    blasts = document.getElementsByClassName('blast');
+
+    setTimeout(() => {
+      for (let i = 0; i < blasts.length; i++) {
+        const blast = blasts[i];
+        blast.className = `blast off`
+      }
+    }, 500)
+  }
+
   clearRows() {
     this.rowClearCount = 0;
     this.lowestRowCleared = null;
@@ -169,6 +189,7 @@ class Board {
         }
       }
     }
+    if (this.rowClearCount > 0) this.blastEffect();
   }
 
   shiftClearedRow() {

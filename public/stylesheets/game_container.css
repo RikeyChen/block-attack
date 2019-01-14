@@ -15,6 +15,7 @@
 }
 
 .block-game {
+  position: relative;
   margin-top: 5px;
   height: 80%;
   width: 50%;
@@ -97,4 +98,39 @@
 
 .J {
   background-color: #4086ED;
+}
+
+.blast {
+  background-image: url('../../wireframes/explosion.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  z-index: 5;
+}
+
+.block-game > div:first-child {
+  bottom: 0;
+  left: -15px;
+}
+
+.block-game > div:nth-child(2) {
+  bottom: 20px;
+  left: 40%;
+}
+
+.block-game > div:nth-child(3) {
+  bottom: 0;
+  right: -5px;
+}
+
+.on {
+  visibility: visible;
+  opacity: 1;
+}
+
+.off {
+  opacity: 0;
+  transition: opacity 2s linear;
 }
