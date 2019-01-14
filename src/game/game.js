@@ -7,7 +7,6 @@ class Game {
     this.playNextBlock = this.playNextBlock.bind(this);
     this.time = 1000;
     document.addEventListener('keydown', (e) => {
-      console.log(e);
       switch (e.key) {
         case 'ArrowDown':
           this.board.shiftBlock(this.board.currentBlock, 'down');
@@ -39,15 +38,36 @@ class Game {
     const descendBlock = setInterval(() => {
       this.board.shiftBlock(currentBlock, 'down');
       if (!this.board.shiftable(currentBlock, 'down')) {
-        this.board.currentBlock = this.board.next();
-        clearInterval(descendBlock);
-        if (this.over()) {
-          console.log('GAME OVER');
+        this.board.clearRows();
+        if (this.board.rowClearCount > 0) {
+          const shiftClearedRows = setInterval(() => {
+            this.board.shiftClearedRow();
+            if (this.board.rowClearCount === 0) {
+              clearInterval(shiftClearedRows);
+              this.board.currentBlock = this.board.next();
+              clearInterval(descendBlock);
+              this.playNextBlock();
+            }
+          }, 50);
         } else {
+          this.board.currentBlock = this.board.next();
+          clearInterval(descendBlock);
           this.playNextBlock();
         }
+
+        if (this.over()) {
+          console.log('GAME OVER');
+        }
+
+        // this.board.currentBlock = this.board.next();
+        // clearInterval(descendBlock);
+        // if (this.over()) {
+        //   console.log('GAME OVER');
+        // } else {
+        //   setTimeout(() => this.playNextBlock(), 500);
+        // }
       }
-    }, 1000);
+    }, this.time);
   }
 }
 
