@@ -46,13 +46,13 @@ class Game {
               clearInterval(shiftClearedRows);
               this.board.currentBlock = this.board.next();
               clearInterval(descendBlock);
-              this.playNextBlock();
+              setTimeout(() => this.playNextBlock(), 500);
             }
           }, 50);
         } else {
           this.board.currentBlock = this.board.next();
           clearInterval(descendBlock);
-          this.playNextBlock();
+          setTimeout(() => this.playNextBlock(), 500);
         }
 
         if (this.over()) {
