@@ -17,9 +17,7 @@ class Game {
       this.updateLevel();
     }, 50);
 
-    // this.buttonDown = true;
     document.addEventListener('keydown', this.eventListenMovement);
-    // document.addEventListener('keyup', () => { this.buttonDown = false; });
   }
 
   eventListenMovement(e) {
