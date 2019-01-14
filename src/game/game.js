@@ -79,15 +79,10 @@ class Game {
       return;
     }
 
-    const setPreset = setInterval(() => {
-      this.board.setPresetBlock(currentBlock);
-    }, 25);
-
     const descendBlock = setInterval(() => {
       this.board.shiftBlock(currentBlock, 'down');
       if (!this.board.shiftable(currentBlock, 'down')) {
         this.board.clearRows();
-        clearInterval(setPreset);
         if (this.board.rowClearCount > 0) {
           this.score += this.scoringByLinesCleared()[this.board.rowClearCount] * (this.level + 1);
           this.updateScore();
