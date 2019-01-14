@@ -45,12 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = new App();
   const render = setInterval(() => {
     app.renderBlocks();
-  }, 50);
+  }, 10);
   app.game.playNextBlock(app);
 
   if (app.game.over()) {
     clearInterval(render);
   }
+  window.shiftClearedRow = app.game.board.shiftClearedRow;
   window.grid = app.game.board.grid;
   window.shiftBlock = app.game.board.shiftBlock;
   window.currentBlock = app.game.board.currentBlock;
