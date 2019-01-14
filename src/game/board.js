@@ -26,9 +26,10 @@ class Board {
 
     this.renderBlockStart = this.renderBlockStart.bind(this);
     this.blockRenderable = this.blockRenderable.bind(this);
-    // this.descendBlock = this.descendBlock.bind(this);
     this.shiftBlock = this.shiftBlock.bind(this);
     this.renderBlock = this.renderBlock.bind(this);
+    this.clearRows = this.clearRows.bind(this);
+    this.shiftClearedRow = this.shiftClearedRow.bind(this);
     this.next = this.next.bind(this);
     this.currentBlock = this.next();
     this.gameOver = false;
@@ -122,41 +123,6 @@ class Board {
     return true;
   }
 
-  // shiftable(block, direction) {
-  //   switch (direction) {
-  //     case 'right':
-  //       const mostRightRow = block.findMostRightRow(block.currentPos);
-  //       for (let i = 0; i < mostRightRow.length; i++) {
-  //         const [x, y] = mostRightRow[i];
-  //         if (y === 9 || this.grid[x][y + 1] !== 'X') {
-  //           return false;
-  //         }
-  //       }
-  //       break;
-  //     case 'left':
-  //       const mostLeftRow = block.findMostLeftRow(block.currentPos);
-  //       for (let i = 0; i < mostLeftRow.length; i++) {
-  //         const [x, y] = mostLeftRow[i];
-  //         if (y === 0 || this.grid[x][y - 1] !== 'X') {
-  //           return false;
-  //         }
-  //       }
-  //       break;
-  //     case 'down':
-  //       const bottomRow = block.findBottomRow(block.currentPos);
-  //       for (let i = 0; i < bottomRow.length; i++) {
-  //         const [x, y] = bottomRow[i];
-  //         if (x === 20 || this.grid[x + 1][y] !== 'X') {
-  //           return false;
-  //         }
-  //       }
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   return true;
-  // }
-
   rotatable(block) {
     block.pivot = block.currentPos[0];
     const newCoords = block.currentPos.map((coord) => {
@@ -187,6 +153,36 @@ class Board {
       const [x, y] = block.startPos[i];
       this.grid[x][y] = block.symbol;
     }
+  }
+
+  clearRows() {
+    this.rowClearCount = 0;
+    this.lowestRowCleared = null;
+    for (let idx1 = 0; idx1 < this.grid.length; idx1++) {
+      if (this.grid[idx1].every(coord => coord !== 'X')) {
+        this.rowClearCount += 1;
+        this.lowestRowCleared = idx1;
+        for (let idx2 = 0; idx2 < this.grid[idx1].length; idx2++) {
+          this.grid[idx1][idx2] = 'X';
+        }
+      }
+    }
+  }
+
+  shiftClearedRow() {
+    const tempGrid = this.grid.map(a => Object.assign([], a));
+    for (let idx1 = 0; idx1 <= (this.lowestRowCleared - this.rowClearCount); idx1++) {
+      for (let idx2 = 0; idx2 < this.grid[idx1].length; idx2++) {
+        this.grid[idx1][idx2] = 'X';
+      }
+    }
+
+    for (let idx3 = 0; idx3 <= (this.lowestRowCleared - this.rowClearCount); idx3++) {
+      for (let idx4 = 0; idx4 < this.grid[idx3].length; idx4++) {
+        this.grid[idx3 + 1][idx4] = tempGrid[idx3][idx4];
+      }
+    }
+    this.rowClearCount -= 1;
   }
 }
 
