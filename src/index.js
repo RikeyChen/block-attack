@@ -49,7 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   app.game.playNextBlock(app);
 
-  if (app.game.over()) {
-    clearInterval(render);
-  }
+  const checkGameOver = setInterval(() => {
+    if (app.game.over()) {
+      clearInterval(render);
+      clearInterval(checkGameOver);
+    }
+  }, 10);
 });
