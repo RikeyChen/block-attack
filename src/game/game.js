@@ -28,6 +28,11 @@ class Game {
         case 'ArrowRight':
           this.board.shiftBlock(this.board.currentBlock, 'right');
           break;
+        case ' ':
+          this.board.dropBlock(this.board.currentBlock);
+          this.score += 40 * this.level * this.board.rowsDropped;
+          this.updateScore();
+          break;
         default:
           break;
       }
@@ -65,11 +70,20 @@ class Game {
     const { currentBlock } = this.board;
     if (currentBlock.start && this.board.blockRenderable(currentBlock)) {
       this.board.renderBlockStart(currentBlock);
+    } else {
+      console.log('GAME OVER');
+      return;
     }
+
+    const setPreset = setInterval(() => {
+      this.board.setPresetBlock(currentBlock);
+    }, 25);
+
     const descendBlock = setInterval(() => {
       this.board.shiftBlock(currentBlock, 'down');
       if (!this.board.shiftable(currentBlock, 'down')) {
         this.board.clearRows();
+        clearInterval(setPreset);
         if (this.board.rowClearCount > 0) {
           this.score += this.scoringByLinesCleared()[this.board.rowClearCount] * (this.level + 1);
           this.updateScore();
@@ -79,14 +93,16 @@ class Game {
               clearInterval(shiftClearedRows);
               this.board.currentBlock = this.board.next();
               clearInterval(descendBlock);
-              setTimeout(() => this.playNextBlock(), 500);
+              this.playNextBlock();
+              // setTimeout(() => this.playNextBlock(), 500);
             }
           }, 50);
         } else {
           this.board.currentBlock = this.board.next();
           clearInterval(descendBlock);
           if (!this.over()) {
-            setTimeout(() => this.playNextBlock(), 500);
+            this.playNextBlock();
+            // setTimeout(() => this.playNextBlock(), 500);
           }
         }
 

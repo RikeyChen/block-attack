@@ -30,6 +30,8 @@ class Board {
     this.renderBlock = this.renderBlock.bind(this);
     this.clearRows = this.clearRows.bind(this);
     this.shiftClearedRow = this.shiftClearedRow.bind(this);
+    this.dropBlock = this.dropBlock.bind(this);
+    this.setPresetBlock = this.setPresetBlock.bind(this);
     this.next = this.next.bind(this);
     this.currentBlock = this.next();
     this.gameOver = false;
@@ -183,6 +185,37 @@ class Board {
       }
     }
     this.rowClearCount -= 1;
+  }
+
+  dropBlock(block) {
+    const newCoords = this.setPresetBlock(block);
+    this.rowsDropped = newCoords[0][0] - block.currentPos[0][0];
+    this.renderBlock('X', block.currentPos);
+    block.shift(newCoords);
+    this.renderBlock(block.symbol, newCoords);
+  }
+
+  setPresetBlock(block) {
+    const presetBlock = {
+      currentPos: block.currentPos.map(coord => Object.assign([], coord)),
+    };
+
+    const tempGrid = this.grid.map(a => Object.assign([], a));
+
+    let shiftable = true;
+    while (shiftable) {
+      const newCoords = this.nextLevel(presetBlock, 'down');
+      for (let i = 0; i < newCoords.length; i++) {
+        const [x, y] = newCoords[i];
+        if (x === 21 || y === 10 || (tempGrid[x][y] !== 'X'
+          && searchForArray(presetBlock.currentPos, newCoords[i]) === -1)) {
+          shiftable = false;
+          break;
+        }
+      }
+      if (shiftable) presetBlock.currentPos = newCoords;
+    }
+    return presetBlock.currentPos;
   }
 }
 
