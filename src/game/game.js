@@ -52,20 +52,14 @@ class Game {
         } else {
           this.board.currentBlock = this.board.next();
           clearInterval(descendBlock);
-          setTimeout(() => this.playNextBlock(), 500);
+          if (!this.over()) {
+            setTimeout(() => this.playNextBlock(), 500);
+          }
         }
 
         if (this.over()) {
           console.log('GAME OVER');
         }
-
-        // this.board.currentBlock = this.board.next();
-        // clearInterval(descendBlock);
-        // if (this.over()) {
-        //   console.log('GAME OVER');
-        // } else {
-        //   setTimeout(() => this.playNextBlock(), 500);
-        // }
       }
     }, this.time);
   }
