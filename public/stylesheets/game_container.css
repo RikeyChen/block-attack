@@ -65,7 +65,6 @@
   padding: 0;
   width: 10%;
   border: 2px inset rgb(214, 214, 214, 0.5);
-  /* border: 0.1px solid #ddd; */
 }
 
 .O, .T, .S, .Z, .I, .L, .J {
@@ -73,29 +72,29 @@
 }
 
 .O {
-  background-color: #b5a677;
+  background-color: #EAE31B;
 }
 
 .T {
-  background-color: #b77c72;
+  background-color: #CA00EE;
 }
 
 .S {
-  background-color: #816e56;
+  background-color: #1FE547;
 }
 
 .Z {
-  background-color: #e3be58;
+  background-color: #EA1600;
 }
 
 .I {
-  background-color: #ec858b;
+  background-color: #44D6F0;
 }
 
 .L {
-  background-color: #f8efae;
+  background-color: #E1A50F;
 }
 
 .J {
-  background-color: #f1b598;
+  background-color: #4086ED;
 }
