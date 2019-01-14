@@ -22,30 +22,6 @@ class Block {
     return bottomRow;
   }
 
-  findMostRightRow(pos) {
-    const yValues = [];
-    pos.forEach(coords => yValues.push(coords[1]));
-    const maxY = Math.max(...yValues);
-    const maxIndices = [];
-    yValues.forEach((y, idx) => {
-      if (y === maxY) maxIndices.push(idx);
-    });
-    const mostRightRow = pos.filter((pos, idx) => maxIndices.includes(idx));
-    return mostRightRow;
-  }
-
-  findMostLeftRow(pos) {
-    const yValues = [];
-    pos.forEach(coords => yValues.push(coords[1]));
-    const minY = Math.min(...yValues);
-    const minIndices = [];
-    yValues.forEach((y, idx) => {
-      if (y === minY) minIndices.push(idx);
-    });
-    const mostLeftRow = pos.filter((pos, idx) => minIndices.includes(idx));
-    return mostLeftRow;
-  }
-
   shift(newCoords) {
     this.start = false;
     this.currentPos = newCoords;
