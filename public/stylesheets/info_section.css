@@ -22,7 +22,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 25px;
+  margin: 40px;
   line-height: 1.5;
 }
 
@@ -32,4 +32,12 @@
 
 .score {
   font-size: 35px;
+}
+
+#github-logo {
+  background-image: url("../github_logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
 }
