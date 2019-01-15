@@ -27,7 +27,7 @@
   z-index: 1
 }
 
-.start {
+.modal {
   padding: 20px;
   box-sizing: border-box;
   background-color: rgb(21, 29, 39, 0.7);
@@ -39,17 +39,17 @@
   z-index: 10;
 }
 
-.start > div:first-child {
-  height: 60%;
+.modal > div:first-child {
+  height: 75%;
   text-align: center;
 }
 
-.start header {
+.modal header {
   font-size: 26px;
   text-align: center;
 }
 
-.start > div:last-child {
+.modal > div:last-child {
   display: flex;
   justify-content: center;
 }
@@ -68,18 +68,19 @@
   transform: scale(1.1);
 }
 
-.start h1 {
+.modal h1 {
   font-size: 18px;
   margin: 20px 0px;
 }
 
 .controls {
   display: flex;
+  line-height: 1.5em;
   flex-direction: column;
   font-size: 16px;
 }
 
-.start-off {
+.modal-off {
   display: none;
 }
 
