@@ -4,7 +4,7 @@ module.exports = {
   context: __dirname,
   entry: './src/index.js',
   output: {
-    path: '/',
+    path: path.resolve('./'),
     filename: 'bundle.js',
     publicPath: './public/stylesheets',
   },
