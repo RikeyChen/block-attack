@@ -7,9 +7,9 @@
 
 Block attack is a rendition of Tetris. Aliens are attacking your spaceship. They are shooting blocks that stick to your force field. Your ship has a blast device but to efficiently deploy its power, it can only be activated when the blocks have evenly attached onto your force field. Your objective is to keep too many blocks from attaching. Otherwise, your force field gets overwhelmed which will lead to your demise.
 
-![start](wireframes/start.png)
-
 #### Play Block Attack Here: <a href="https://rikeychen.github.io/block-attack/">Block Attack Live</a>
+
+![start](wireframes/start.png)
 
 This project was inspired by my life-long enjoyment of tetris. I would freqeuently find myself revisiting the game. In combination with having a fascination of the extra-terrestrial and the interstellar unknown, I decided to build a space-themed Tetris with the power of JavaScript.
 
