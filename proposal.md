@@ -1,10 +1,14 @@
 # Block Attack
 
+## Technologies
+- Vanilla javascript for game logic
+
 ## Background and Overview
 
 Block attack is a rendition of Tetris. Aliens are attacking your spaceship. They are shooting blocks that stick to your force field. Your ship has a blast device but to efficiently deploy its power, it can only be activated when the blocks have evenly attached onto your force field. Your objective is to keep too many blocks from attaching. Otherwise, your force field gets overwhelmed which will lead to your demise.
 
-#### Play Block Attack Here: fups.herokuapp.com (CHANGE LATER)
+
+#### Play Block Attack Here: <a href="https://rikeychen.github.io/block-attack/">Block Attack Live</a>
 
 This project was inspired by my life-long enjoyment of tetris. I would freqeuently find myself revisiting the game. In combination with having a fascination of the extra-terrestrial and the interstellar unknown, I decided to build a space-themed Tetris with the power of JavaScript.
 
@@ -66,20 +70,12 @@ This project was inspired by my life-long enjoyment of tetris. I would freqeuent
 ## Wireframes
 ![sample](wireframes/sample.png)
 
-## Technologies
-- Vanilla javascript for game logic
-- HTML5 Canvas for rendering
-- React.js - Page structure and functionality
-- MongoDB/Node.js - Simple Backend/Database for keeping highscores
-- HTML audio tag for music or an Audio Player library
-
 ## Implementation Timeline
 
 ### Core Implementations: Block rendering and movement
 
 ### Day 1
 - Setup basic structure and dependencies of project
-- Research canvas
 - Build board design and rendering
 
 ### Day 2
@@ -107,4 +103,4 @@ This project was inspired by my life-long enjoyment of tetris. I would freqeuent
 
 ### Day 7
 - Implement bonus features
-- Deploy to Heroku
+- Deploy to Github Pages
