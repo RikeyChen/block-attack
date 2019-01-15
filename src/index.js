@@ -6,7 +6,6 @@ class App {
     this.populateGrid = this.populateGrid.bind(this);
     this.board = this.game.board;
     this.renderBlocks = this.renderBlocks.bind(this);
-    this.populateGrid();
   }
 
   populateGrid() {
@@ -42,23 +41,38 @@ class App {
 export default App;
 
 document.addEventListener('DOMContentLoaded', () => {
-  const startModal = document.getElementsByClassName('start')[0];
   const startButton = document.getElementsByClassName('start-button')[0];
-  startButton.addEventListener('click', () => {
-    startModal.className = 'start-off';
+  const retryButton = document.getElementsByClassName('start-button')[1];
+
+  const startGame = () => {
+    const startModal = document.getElementsByClassName('modal')[0];
+    if (startModal) startModal.className = 'modal-off';
 
     const app = new App();
+
+    if (document.getElementsByClassName('row').length === 0) {
+      app.populateGrid();
+    }
+
     const render = setInterval(() => {
       app.renderBlocks();
-    }, 10);
+    }, 25);
 
-    app.game.playNextBlock(app);
+    app.game.playNextBlock();
 
     const checkGameOver = setInterval(() => {
       if (app.game.over()) {
         clearInterval(render);
         clearInterval(checkGameOver);
+        const gameOverModal = document.getElementById('game-over');
+        gameOverModal.className = 'modal';
+        retryButton.onclick = () => {
+          document.removeEventListener('click', startGame);
+          document.location.href = '';
+        };
       }
-    }, 10);
-  });
+    }, 25);
+  };
+
+  startButton.addEventListener('click', startGame);
 });
