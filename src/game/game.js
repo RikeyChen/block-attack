@@ -15,7 +15,7 @@ class Game {
     this.update = setInterval(() => {
       this.updateScore();
       this.updateLevel();
-    }, 50);
+    }, 25);
 
     document.addEventListener('keydown', this.eventListenMovement);
   }
@@ -76,7 +76,6 @@ class Game {
     if (currentBlock.start && this.board.blockRenderable(currentBlock)) {
       this.board.renderBlockStart(currentBlock);
     } else {
-      console.log('GAME OVER');
       document.removeEventListener('keydown', this.eventListenMovement);
       clearInterval(this.update);
       return;
