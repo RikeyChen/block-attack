@@ -1,106 +1,108 @@
 # Block Attack
 
 ## Technologies
-- Vanilla javascript for game logic and rendering
+- Block Attack was created with only Javascript, HTML5, and CSS3
 
 ## Background and Overview
 
 Block attack is a rendition of Tetris. Aliens are attacking your spaceship. They are shooting blocks that stick to your force field. Your ship has a blast device but to efficiently deploy its power, it can only be activated when the blocks have evenly attached onto your force field. Your objective is to keep too many blocks from attaching. Otherwise, your force field gets overwhelmed which will lead to your demise.
 
+![start](wireframes/start.png)
 
 #### Play Block Attack Here: <a href="https://rikeychen.github.io/block-attack/">Block Attack Live</a>
 
 This project was inspired by my life-long enjoyment of tetris. I would freqeuently find myself revisiting the game. In combination with having a fascination of the extra-terrestrial and the interstellar unknown, I decided to build a space-themed Tetris with the power of JavaScript.
 
-## Functionality and MVP Features
+## Features
 
-### The player will be able to do the following in the game:
+#### Movement - Users are able to move the block horizontally and downward.
 
-#### Block Movement
-  - [ ] User is able to move the block horizontally and downward.
+#### Rotation - Users are able to rotate the block clockwise.
 
-#### Block Rotation
-  - [ ] User able to rotate the block clockwise.
+The block is first checked to see if it is rotatable at its current position. This check compares the coordinates at the current position to the coordinates at the next rotation. If the next coordinates does not equal to a valid empty space ('X') or is not included in the current position, the block will not be rotated. The algorithm used in finding the new coordinates includes using a pivot of the current position.
 
-#### Block Slam
-  - [ ] User is able to force the block downward instantly to its ending position.
 
-### The game will have the following overall features:
+```
+  rotatable(block) {
+    block.pivot = block.currentPos[0];
+    const newCoords = block.currentPos.map((coord) => {
+      const [x, y] = coord;
+      const newX = y + block.pivot[0] - block.pivot[1];
+      const newY = block.pivot[0] + block.pivot[1] - x;
+      return [newX, newY];
+    });
 
-#### Starting Screen
-  - [ ] Press space to start
-  - [ ] Description of the game
-  - [ ] Info on how to play
+    for (let i = 0; i < newCoords.length; i++) {
+      const [x, y] = newCoords[i];
+      if (this.grid[x][y] !== 'X'
+        && searchForArray(block.currentPos, newCoords[i]) === -1) {
+        return false;
+      }
+    } return true;
+  }
 
-#### Win/Lose
-  - [ ] Upon clearing all 15 levels, a modal will pop up with a message displaying "You win!".
-  - [ ] If the blocks reach the top, a modal will pop up with a message displaying "You lose"
-  - [ ] Both modals will ask for a name to input to record high scores
-  - [ ] Only scores with atleast X amount of points will display the name input field
+  rotateBlock(block) {
+    if (this.rotatable(block)) {
+      this.renderBlock('X', block.currentPos);
+      block.rotate();
+      this.renderBlock(block.symbol, block.currentPos);
+    }
+  }
 
-#### Clearing
-  - [ ] Each time the user creates an even layer of blocks, the evenly layered blocks will be blasted with the device, causing them to be cleared.
-  - [ ] Blocks that are apart of the blasted blocks, but are not in the completely filled layers will remain after the blast.
+```
 
-#### Levels
-  - [ ] There will be 15 levels.
-  - [ ] Each level will cause the blocks to move increasingly faster.
+#### Drop - Users are able to force the block downward instantly.
 
-#### Music
-  - [ ] Music button that turns audio on/off
-  - [ ] Music should get more intense as the blocks build higher.
+To drop a block into it's predicted position, a helper method `setPresetBlock(block)` was made. The function iterates through a deep duped copy of the main grid and shifts the block downward until unshiftable.
 
-#### Score
-  - [ ] Score will increment over time.
-  - [ ] Score will increment by clearing blocks.
-  - [ ] Score incrementation will increase by level.
 
-### Bonus Features
+```
+setPresetBlock(block) {
+    const presetBlock = {
+      currentPos: block.currentPos.map(coord => Object.assign([], coord)),
+    };
 
-#### Pause button
-  - Game will be paused
-  - Upon resuming, there will be a 3 second timer before starting
+    const tempGrid = this.grid.map(a => Object.assign([], a));
 
-#### Block Swap
-  - User is able to capture one block at a time to be used at a later time.
+    let shiftable = true;
+    while (shiftable) {
+      const newCoords = this.nextLevel(presetBlock, 'down');
+      for (let i = 0; i < newCoords.length; i++) {
+        const [x, y] = newCoords[i];
+        if (x === 21 || y === 10 || (tempGrid[x][y] !== 'X'
+          && searchForArray(presetBlock.currentPos, newCoords[i]) === -1)) {
+          shiftable = false;
+          break;
+        }
+      }
+      if (shiftable) presetBlock.currentPos = newCoords;
+    }
+    return presetBlock.currentPos;
+  }
 
-#### Darkness
-  - Surrounding view should get darker as blocks build higher to a more focused view.
+```
 
-## Wireframes
-![sample](wireframes/sample.png)
+The final position is then used to `dropBlock(block)` into the new coordinates.
 
-## Implementation Timeline
+```
+  dropBlock(block) {
+    const newCoords = this.setPresetBlock(block);
+    this.rowsDropped = newCoords[0][0] - block.currentPos[0][0];
+    this.renderBlock('X', block.currentPos);
+    block.shift(newCoords);
+    this.renderBlock(block.symbol, newCoords);
+  }
+```
 
-### Core Implementations: Block rendering and movement
+#### Clearing - Blocks can be cleared when they fill up an entire row.
 
-### Day 1
-- Setup basic structure and dependencies of project
-- Build board design and rendering
+![clear](wireframes/clear.png)
 
-### Day 2
-- Build blocks design and rendering
-- Start block movement and rotation functionality
+#### Levels - There are 15 levels.
 
-### Day 3
-- Complete block movement and rotation functionality
-- Start block clearing functionality
+#### Score - Score will increment by clearing and descending blocks.
 
-### Day 4
-- Implement game over functionality
-- Implement score
-- Implement game over modal
+![game_over](wireframes/game_over.png)
 
-### Day 5
-- Implement speed increase functionality per level
-- Implement audio/music
-- Implement on/off button for audio/music
 
-### Day 6
-- Complete MVPs
-- Clean up bugs
-- Clean up and add flashy styling
 
-### Day 7
-- Implement bonus features
-- Deploy to Github Pages
