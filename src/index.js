@@ -42,17 +42,23 @@ class App {
 export default App;
 
 document.addEventListener('DOMContentLoaded', () => {
-  const app = new App();
-  const render = setInterval(() => {
-    app.renderBlocks();
-  }, 10);
+  const startModal = document.getElementsByClassName('start')[0];
+  const startButton = document.getElementsByClassName('start-button')[0];
+  startButton.addEventListener('click', () => {
+    startModal.className = 'start-off';
 
-  app.game.playNextBlock(app);
+    const app = new App();
+    const render = setInterval(() => {
+      app.renderBlocks();
+    }, 10);
 
-  const checkGameOver = setInterval(() => {
-    if (app.game.over()) {
-      clearInterval(render);
-      clearInterval(checkGameOver);
-    }
-  }, 10);
+    app.game.playNextBlock(app);
+
+    const checkGameOver = setInterval(() => {
+      if (app.game.over()) {
+        clearInterval(render);
+        clearInterval(checkGameOver);
+      }
+    }, 10);
+  });
 });
