@@ -1,7 +1,7 @@
 # Block Attack
 
 ## Technologies
-- Block Attack was created with only Javascript, HTML5, and CSS3
+### Block Attack was created with only Javascript, HTML5, and CSS3
 
 ## Background and Overview
 
