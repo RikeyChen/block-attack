@@ -7,7 +7,7 @@
 
 Block attack is a rendition of Tetris. Aliens are attacking your spaceship. They are shooting blocks that stick to your force field. Your ship has a blast device but to efficiently deploy its power, it can only be activated when the blocks have evenly attached onto your force field. Your objective is to keep too many blocks from attaching. Otherwise, your force field gets overwhelmed which will lead to your demise.
 
-#### Play Block Attack Here: <a href="https://rikeychen.github.io/block-attack/">Block Attack Live</a>
+### Play Block Attack Here: <a href="https://rikeychen.github.io/block-attack/">Block Attack Live</a>
 
 ![start](wireframes/start.png)
 
@@ -15,9 +15,9 @@ This project was inspired by my life-long enjoyment of tetris. I would freqeuent
 
 ## Features
 
-#### Movement - Users are able to move the block horizontally and downward.
+### Movement - Users are able to move the block horizontally and downward.
 
-#### Rotation - Users are able to rotate the block clockwise.
+### Rotation - Users are able to rotate the block clockwise.
 
 The block is first checked to see if it is rotatable at its current position. This check compares the coordinates at the current position to the coordinates at the next rotation. If the next coordinates does not equal to a valid empty space ('X') or is not included in the current position, the block will not be rotated. The algorithm used in finding the new coordinates includes using a pivot of the current position.
 
@@ -51,13 +51,13 @@ The block is first checked to see if it is rotatable at its current position. Th
 
 ```
 
-#### Drop - Users are able to force the block downward instantly.
+### Drop - Users are able to force the block downward instantly.
 
 To drop a block into it's predicted position, a helper method `setPresetBlock(block)` was made. The function iterates through a deep duped copy of the main grid and shifts the block downward until unshiftable.
 
 
 ```
-setPresetBlock(block) {
+  setPresetBlock(block) {
     const presetBlock = {
       currentPos: block.currentPos.map(coord => Object.assign([], coord)),
     };
@@ -92,15 +92,16 @@ The final position is then used to `dropBlock(block)` into the new coordinates.
     block.shift(newCoords);
     this.renderBlock(block.symbol, newCoords);
   }
+
 ```
 
-#### Clearing - Blocks can be cleared when they fill up an entire row.
+### Clearing - Blocks can be cleared when they fill up an entire row.
 
 ![clear](wireframes/clear.png)
 
-#### Levels - There are 15 levels.
+### Levels - There are 15 levels.
 
-#### Score - Score will increment by clearing and descending blocks.
+### Score - Score will increment by clearing and descending blocks.
 
 ![game_over](wireframes/game_over.png)
 
