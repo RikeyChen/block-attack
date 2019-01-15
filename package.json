@@ -4,7 +4,6 @@
   "description": "Block Attack",
   "main": "index.js",
   "scripts": {
-    "postinstall": "webpack",
     "webpack": "webpack --watch --mode=development"
   },
   "repository": {
