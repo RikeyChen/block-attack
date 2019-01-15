@@ -36,8 +36,22 @@
 
 #github-logo {
   background-image: url("../github_logo.png");
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   width: 50px;
   height: 50px;
+}
+
+#linkedin-logo {
+  background-image: url("../linkedin_logo.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
+}
+
+#portfolio-links {
+  display: flex;
+  justify-content: space-around;
+  width: 125px;
 }
