@@ -160,11 +160,9 @@ class Board {
 
   blastEffect() {
     let blasts = document.getElementsByClassName('blast');
-    console.log(blasts);
     for (let i = 0; i < blasts.length; i++) {
       const blast = blasts[i];
-      blast.className = `blast on`;
-      console.log(blasts)
+      blast.className = 'blast on';
     }
 
     blasts = document.getElementsByClassName('blast');
@@ -172,9 +170,9 @@ class Board {
     setTimeout(() => {
       for (let i = 0; i < blasts.length; i++) {
         const blast = blasts[i];
-        blast.className = `blast off`
+        blast.className = 'blast off';
       }
-    }, 500)
+    }, 500);
   }
 
   clearRows() {
