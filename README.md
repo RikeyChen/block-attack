@@ -22,7 +22,7 @@ This project was inspired by my life-long enjoyment of tetris. I would freqeuent
 The block is first checked to see if it is rotatable at its current position. This check compares the coordinates at the current position to the coordinates at the next rotation. If the next coordinates does not equal to a valid empty space ('X') or is not included in the current position, the block will not be rotated. The algorithm used in finding the new coordinates includes using a pivot of the current position.
 
 
-```
+```js
   rotatable(block) {
     block.pivot = block.currentPos[0];
     const newCoords = block.currentPos.map((coord) => {
@@ -56,7 +56,7 @@ The block is first checked to see if it is rotatable at its current position. Th
 To drop a block into it's predicted position, a helper method `setPresetBlock(block)` was made. The function iterates through a deep duped copy of the main grid and shifts the block downward until unshiftable.
 
 
-```
+```js
   setPresetBlock(block) {
     const presetBlock = {
       currentPos: block.currentPos.map(coord => Object.assign([], coord)),
@@ -84,7 +84,7 @@ To drop a block into it's predicted position, a helper method `setPresetBlock(bl
 
 The final position is then used to `dropBlock(block)` into the new coordinates.
 
-```
+```js
   dropBlock(block) {
     const newCoords = this.setPresetBlock(block);
     this.rowsDropped = newCoords[0][0] - block.currentPos[0][0];
