@@ -50,8 +50,16 @@
   height: 50px;
 }
 
+#portfolio-logo {
+  background-image: url("../portfolio_favicon2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 65px;
+  height: 50px;
+}
+
 #portfolio-links {
   display: flex;
   justify-content: space-around;
-  width: 125px;
+  width: 215px;
 }
