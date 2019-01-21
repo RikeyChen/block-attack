@@ -32,8 +32,13 @@ class Block {
     this.pivot = this.currentPos[0];
     this.currentPos = this.currentPos.map((coord) => {
       const [x, y] = coord;
-      const newX = y + this.pivot[0] - this.pivot[1];
-      const newY = this.pivot[0] + this.pivot[1] - x;
+      const relativeV = [x - this.pivot[0], y - this.pivot[1]];
+      const rotatedV = [
+        ((relativeV[0] * 0) + (relativeV[1] * 1)),
+        ((relativeV[0] * -1) + (relativeV[1] * 0)),
+      ];
+      const newX = rotatedV[0] + this.pivot[0];
+      const newY = rotatedV[1] + this.pivot[1];
       return [newX, newY];
     });
     return this.currentPos;

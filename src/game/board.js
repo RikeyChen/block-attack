@@ -126,12 +126,19 @@ class Board {
     return true;
   }
 
+  // Clockwise rotation matrix = [0 1
+  //                            -1 0]
   rotatable(block) {
     block.pivot = block.currentPos[0];
     const newCoords = block.currentPos.map((coord) => {
       const [x, y] = coord;
-      const newX = y + block.pivot[0] - block.pivot[1];
-      const newY = block.pivot[0] + block.pivot[1] - x;
+      const relativeV = [x - block.pivot[0], y - block.pivot[1]];
+      const rotatedV = [
+        ((relativeV[0] * 0) + (relativeV[1] * 1)),
+        ((relativeV[0] * -1) + (relativeV[1] * 0)),
+      ];
+      const newX = rotatedV[0] + block.pivot[0];
+      const newY = rotatedV[1] + block.pivot[1];
       return [newX, newY];
     });
 
