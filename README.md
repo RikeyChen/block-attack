@@ -19,23 +19,35 @@ This project was inspired by my life-long enjoyment of tetris. I would freqeuent
 
 ### Rotation - Users are able to rotate the block clockwise.
 
-The block is first checked to see if it is rotatable at its current position. This check compares the coordinates at the current position to the coordinates at the next rotation. If the next coordinates does not equal to a valid empty space ('X') or is not included in the current position, the block will not be rotated. The algorithm used in finding the new coordinates includes using a pivot of the current position.
+The block is first checked to see if it is rotatable at its current position. This check compares the coordinates at the current position to the coordinates at the next rotation. If the next coordinates does not equal to a valid empty space ('X') or is not included in the current position, the block will not be rotated. The algorithm used in finding the new coordinates includes using a pivot of the current position and a rotation matrix.
 
 
 ```js
+  // Clockwise rotation matrix = [0 1
+  //                            -1 0]
   rotatable(block) {
     block.pivot = block.currentPos[0];
     const newCoords = block.currentPos.map((coord) => {
       const [x, y] = coord;
-      const newX = y + block.pivot[0] - block.pivot[1];
-      const newY = block.pivot[0] + block.pivot[1] - x;
+      const relativeV = [
+        x - block.pivot[0], y - block.pivot[1]
+      ];
+      const rotatedV = [
+        ((relativeV[0] * 0) + (relativeV[1] * 1)),
+        ((relativeV[0] * -1) + (relativeV[1] * 0)),
+      ];
+      const newX = rotatedV[0] + block.pivot[0];
+      const newY = rotatedV[1] + block.pivot[1];
       return [newX, newY];
     });
 
     for (let i = 0; i < newCoords.length; i++) {
       const [x, y] = newCoords[i];
       if (this.grid[x][y] !== 'X'
-        && searchForArray(block.currentPos, newCoords[i]) === -1) {
+        && searchForArray(
+          block.currentPos,
+          newCoords[i]) === -1
+        ) {
         return false;
       }
     } return true;
